@@ -1,23 +1,30 @@
 import logo from './logo.svg';
 import './App.css';
+import { useCallback, useEffect, useState } from 'react';
 
 function App() {
+
+  const [words, setWords] = useState([]);
+
+  useEffect(() => {
+    getWords()
+  }, [])
+
+  const getWords = () => {
+    fetch("https://api.dictionaryapi.dev/api/v2/entries/en/hello")
+    .then(res => res.json())
+    .then(data => setWords(data))
+  }
+
+  const helloWord = words.map((hello) => {
+    return <div>{hello.word}</div>
+  })
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input type="text"/>
+      {helloWord}
     </div>
   );
 }
